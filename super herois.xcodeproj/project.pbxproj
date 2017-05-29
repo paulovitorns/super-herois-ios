@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC5D33AF93E1C419028F0162 /* libPods-super herois.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18AB2E81FE26601A196ED2ED /* libPods-super herois.a */; };
 		F98B77A11EDC762C00C2F65D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F98B77A01EDC762C00C2F65D /* main.m */; };
 		F98B77A41EDC762C00C2F65D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F98B77A31EDC762C00C2F65D /* AppDelegate.m */; };
 		F98B77A71EDC762C00C2F65D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F98B77A61EDC762C00C2F65D /* ViewController.m */; };
@@ -16,6 +17,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		09B10234C3E45AD19ECA5E00 /* Pods-super herois.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-super herois.release.xcconfig"; path = "Pods/Target Support Files/Pods-super herois/Pods-super herois.release.xcconfig"; sourceTree = "<group>"; };
+		18AB2E81FE26601A196ED2ED /* libPods-super herois.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-super herois.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2F2331DD1CE5826A81C9E25 /* Pods-super herois.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-super herois.debug.xcconfig"; path = "Pods/Target Support Files/Pods-super herois/Pods-super herois.debug.xcconfig"; sourceTree = "<group>"; };
 		F98B779C1EDC762C00C2F65D /* super herois.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "super herois.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F98B77A01EDC762C00C2F65D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F98B77A21EDC762C00C2F65D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -33,17 +37,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC5D33AF93E1C419028F0162 /* libPods-super herois.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		24FD5F30F17ED61B8E61A65A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E2F2331DD1CE5826A81C9E25 /* Pods-super herois.debug.xcconfig */,
+				09B10234C3E45AD19ECA5E00 /* Pods-super herois.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		5C0A4741C16C1246619B1004 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				18AB2E81FE26601A196ED2ED /* libPods-super herois.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F98B77931EDC762C00C2F65D = {
 			isa = PBXGroup;
 			children = (
 				F98B779E1EDC762C00C2F65D /* super herois */,
 				F98B779D1EDC762C00C2F65D /* Products */,
+				24FD5F30F17ED61B8E61A65A /* Pods */,
+				5C0A4741C16C1246619B1004 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,9 +110,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F98B77B31EDC762C00C2F65D /* Build configuration list for PBXNativeTarget "super herois" */;
 			buildPhases = (
+				AB92E7F66DB20FA9C07982C1 /* [CP] Check Pods Manifest.lock */,
 				F98B77981EDC762C00C2F65D /* Sources */,
 				F98B77991EDC762C00C2F65D /* Frameworks */,
 				F98B779A1EDC762C00C2F65D /* Resources */,
+				E99E7D3F7C633DE8E9508FC5 /* [CP] Embed Pods Frameworks */,
+				8B6649D4196D6389DC035965 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -145,6 +172,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8B6649D4196D6389DC035965 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-super herois/Pods-super herois-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AB92E7F66DB20FA9C07982C1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E99E7D3F7C633DE8E9508FC5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-super herois/Pods-super herois-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F98B77981EDC762C00C2F65D /* Sources */ = {
@@ -271,6 +346,7 @@
 		};
 		F98B77B41EDC762C00C2F65D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E2F2331DD1CE5826A81C9E25 /* Pods-super herois.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = K6P496DL7B;
@@ -283,6 +359,7 @@
 		};
 		F98B77B51EDC762C00C2F65D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09B10234C3E45AD19ECA5E00 /* Pods-super herois.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = K6P496DL7B;
