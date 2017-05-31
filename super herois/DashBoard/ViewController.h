@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "BuscaViewController.h"
 #import "Constants.h"
 #import "HeroesService.h"
 #import "SuperHeroCell.h"
@@ -17,9 +18,12 @@
 
 @property(strong, retain) Characters *characters;
 @property(strong, retain) NSMutableArray *data;
+@property(strong, retain) NSDictionary *params;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property(nonatomic, retain) UIView *uivw_loading;
 
+-(void)prepareParams;
+-(void)prepareParams:(NSNotification*)notification;
 -(void) showSpinner;
 -(void) removeSpinner;
 -(void) requestData:(NSDictionary*)params;

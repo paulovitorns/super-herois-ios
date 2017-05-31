@@ -80,7 +80,8 @@
                         <barButtonItem key="rightBarButtonItem" image="ic_search_white" id="eFJ-ky-tdF">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="Ar4-mw-gJb" kind="presentation" id="tsP-nS-hWJ"/>
+                                <action selector="goToSearch:" destination="BYZ-38-t0r" id="HxC-Lw-djT"/>
+                                <segue destination="Ar4-mw-gJb" kind="show" identifier="showSearchSegue" id="oZv-sa-WDa"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -92,10 +93,10 @@
             </objects>
             <point key="canvasLocation" x="976.875" y="788.02816901408448"/>
         </scene>
-        <!--View Controller-->
+        <!--Refine a sua busca-->
         <scene sceneID="IcM-I5-DBj">
             <objects>
-                <viewController id="Ar4-mw-gJb" sceneMemberID="viewController">
+                <viewController id="Ar4-mw-gJb" customClass="BuscaViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VbY-r3-CPz"/>
                         <viewControllerLayoutGuide type="bottom" id="xqc-yE-Wsm"/>
@@ -103,16 +104,112 @@
                     <view key="view" contentMode="scaleToFill" id="5IZ-Oa-mt3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mtA-Ga-ZiJ" userLabel="uiview_container">
+                                <rect key="frame" x="0.0" y="199" width="320" height="170"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="nome do personagem" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CMN-cc-SRT">
+                                        <rect key="frame" x="16" y="16" width="288" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
+                                                <color key="value" red="1" green="1" blue="1" alpha="0.99899655963302747" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nCu-Mp-hi5">
+                                        <rect key="frame" x="16" y="78" width="288" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LGs-IY-ixG">
+                                                <rect key="frame" x="1" y="1" width="286" height="46"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ordenação" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YRk-mv-AMp">
+                                                <rect key="frame" x="16" y="14" width="224" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                <accessibility key="accessibilityConfiguration">
+                                                    <bool key="isElement" value="NO"/>
+                                                </accessibility>
+                                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="16"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U9a-iN-VmT">
+                                                <rect key="frame" x="248" y="12" width="24" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                                                <state key="normal" image="ic_keyboard_arrow_down_white"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9i-qC-9tY">
+                                                <rect key="frame" x="0.0" y="0.0" width="288" height="48"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                <accessibility key="accessibilityConfiguration">
+                                                    <bool key="isElement" value="NO"/>
+                                                </accessibility>
+                                                <connections>
+                                                    <action selector="openPicker:" destination="Ar4-mw-gJb" eventType="touchUpInside" id="2qY-37-dPM"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <accessibility key="accessibilityConfiguration" hint="toque duas vezes para selecionar" identifier="uivw_banco" label="banco">
+                                            <accessibilityTraits key="traits" staticText="YES"/>
+                                            <bool key="isElement" value="YES"/>
+                                        </accessibility>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VzM-7M-efg" userLabel="UI View picker data">
+                                <rect key="frame" x="0.0" y="368" width="320" height="200"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NX1-6f-yIa">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </pickerView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Refine a sua busca" id="KgX-Oc-NgW">
+                        <barButtonItem key="leftBarButtonItem" image="ic_check_white" id="kPt-2z-Ros">
+                            <color key="tintColor" red="0.0" green="0.72549019609999998" blue="0.70980392160000005" alpha="1" colorSpace="deviceRGB"/>
+                            <connections>
+                                <action selector="prepareAndSendNewSearch:" destination="Ar4-mw-gJb" id="dfV-H7-Rkw"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="ic_close_white" id="hjL-Qs-qmT">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="cancelSearch:" destination="Ar4-mw-gJb" id="QPC-Ez-ET5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="uifield_nome_personagem" destination="CMN-cc-SRT" id="A2L-g0-Tov"/>
+                        <outlet property="uilbl_order" destination="YRk-mv-AMp" id="SaR-Jy-0Jb"/>
+                        <outlet property="uipicker_data" destination="NX1-6f-yIa" id="uMH-Xm-ZOe"/>
+                        <outlet property="uiview_picker_container" destination="VzM-7M-efg" id="Q29-ee-917"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lq7-Lr-6T9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1789" y="327"/>
+            <point key="canvasLocation" x="1788.75" y="326.40845070422534"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NVt-MN-Kcs">
@@ -136,6 +233,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ic_check_white" width="24" height="24"/>
+        <image name="ic_close_white" width="24" height="24"/>
+        <image name="ic_keyboard_arrow_down_white" width="24" height="24"/>
         <image name="ic_marvel_file" width="68" height="69"/>
         <image name="ic_search_white" width="24" height="24"/>
     </resources>

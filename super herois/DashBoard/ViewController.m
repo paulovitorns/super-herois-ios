@@ -20,13 +20,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.characters = [Characters new];
-    self.data = [[NSMutableArray alloc] init];
-    [self requestData:nil];
+    if(self.params == nil)
+        [self prepareParams];
+    
+    [self requestData:self.params];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    [self registerListeners];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,6 +70,25 @@
     return cell;
 }
 
+-(void)prepareParams{
+    long currentTime = (long)(NSTimeInterval)([[NSDate date] timeIntervalSince1970]);
+    NSString *time = [NSString stringWithFormat:@"%ld", currentTime];
+    
+    self.params = @{
+                    @"orderBy":@"name",
+                    @"limit": [[NSNumber alloc] initWithInt:10],
+                    @"offset": [[NSNumber alloc] initWithInt:0],
+                    @"apikey": @"656ace3b6053ed496242e3d3f7dca830",
+                    @"ts": time,
+                    @"hash": [HeroesService generateHashKey:time]};
+}
+
+- (void)prepareParams:(NSNotification *)notification{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:POSTSEARCHMETHOD object:nil];
+    self.params = notification.userInfo;
+    [self requestData:self.params];
+}
+
 -(void)showSpinner{
     
     self.uivw_loading = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
@@ -94,20 +115,8 @@
 -(void)requestData:(NSDictionary *)params{
     
     [self showSpinner];
-    [self registerListeners];
     
-    long currentTime = (long)(NSTimeInterval)([[NSDate date] timeIntervalSince1970]);
-    NSString *time = [NSString stringWithFormat:@"%ld", currentTime];
-    
-    NSDictionary *parameters = @{
-                                 @"orderBy":@"name",
-                                 @"limit": [[NSNumber alloc] initWithInt:10],
-                                 @"offset": [[NSNumber alloc] initWithInt:0],
-                                 @"apikey": @"656ace3b6053ed496242e3d3f7dca830",
-                                 @"ts": time,
-                                 @"hash": [HeroesService generateHashKey:time]};
-    
-    [HeroesService getData:@"https://gateway.marvel.com:443/v1/public/characters" withFunc:AFCharactersMethod andWithParams:parameters];
+    [HeroesService getData:@"https://gateway.marvel.com:443/v1/public/characters" withFunc:AFCharactersMethod andWithParams:params];
 }
 
 - (void)registerListeners{
@@ -126,6 +135,10 @@
     [self removeListeners];
     
     if([notification.userInfo isKindOfClass:[NSDictionary class]]){
+        
+        self.characters = [Characters new];
+        self.data = [[NSMutableArray alloc] init];
+        
         [self.characters parseResult:notification.userInfo];
         [self.data addObjectsFromArray:self.characters.charactersData.results];
     }
@@ -138,6 +151,14 @@
     [self removeSpinner];
     [self removeListeners];
     
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"showSearchSegue"]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(prepareParams:) name:POSTSEARCHMETHOD object:nil];
+        BuscaViewController *controller = segue.destinationViewController;
+        controller.params = self.params;
+    }
 }
 
 @end

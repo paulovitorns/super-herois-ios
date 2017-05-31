@@ -9,6 +9,7 @@
 #ifndef Constants_h
 #define Constants_h
 
+#define  POSTSEARCHMETHOD           @"POSTSEARCHMETHOD"
 #define  AFCharactersMethod         @"v1/public/characters"
 #define  AFCharactersResponseNOK    @"AFCharactersResponseNOK"
 
