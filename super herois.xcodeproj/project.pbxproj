@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		EC5D33AF93E1C419028F0162 /* libPods-super herois.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18AB2E81FE26601A196ED2ED /* libPods-super herois.a */; };
 		F9297ECD1EDCFAFE00A4124E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9297ECC1EDCFAFE00A4124E /* Assets.xcassets */; };
-		F9297ED21EDD038900A4124E /* SuperHeroCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F9297ED01EDD038900A4124E /* SuperHeroCell.m */; };
+		F96403D21EDE6D1900F0ADB5 /* SuperHeroCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F96403CF1EDE6D1900F0ADB5 /* SuperHeroCell.m */; };
+		F96403D31EDE6D1900F0ADB5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F96403D11EDE6D1900F0ADB5 /* ViewController.m */; };
 		F98B77A11EDC762C00C2F65D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F98B77A01EDC762C00C2F65D /* main.m */; };
 		F98B77A41EDC762C00C2F65D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F98B77A31EDC762C00C2F65D /* AppDelegate.m */; };
-		F98B77A71EDC762C00C2F65D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F98B77A61EDC762C00C2F65D /* ViewController.m */; };
 		F98B77AA1EDC762C00C2F65D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F98B77A81EDC762C00C2F65D /* Main.storyboard */; };
 		F98B77AF1EDC762C00C2F65D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F98B77AD1EDC762C00C2F65D /* LaunchScreen.storyboard */; };
 		F9C3151E1EDC9B8E0093714B /* Characters.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C3151D1EDC9B8E0093714B /* Characters.m */; };
@@ -26,14 +26,14 @@
 		18AB2E81FE26601A196ED2ED /* libPods-super herois.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-super herois.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2F2331DD1CE5826A81C9E25 /* Pods-super herois.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-super herois.debug.xcconfig"; path = "Pods/Target Support Files/Pods-super herois/Pods-super herois.debug.xcconfig"; sourceTree = "<group>"; };
 		F9297ECC1EDCFAFE00A4124E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F9297ECF1EDD038900A4124E /* SuperHeroCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperHeroCell.h; sourceTree = "<group>"; };
-		F9297ED01EDD038900A4124E /* SuperHeroCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperHeroCell.m; sourceTree = "<group>"; };
+		F96403CE1EDE6D1900F0ADB5 /* SuperHeroCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperHeroCell.h; sourceTree = "<group>"; };
+		F96403CF1EDE6D1900F0ADB5 /* SuperHeroCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperHeroCell.m; sourceTree = "<group>"; };
+		F96403D01EDE6D1900F0ADB5 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		F96403D11EDE6D1900F0ADB5 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		F98B779C1EDC762C00C2F65D /* super herois.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "super herois.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F98B77A01EDC762C00C2F65D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F98B77A21EDC762C00C2F65D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F98B77A31EDC762C00C2F65D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		F98B77A51EDC762C00C2F65D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		F98B77A61EDC762C00C2F65D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		F98B77A91EDC762C00C2F65D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F98B77AE1EDC762C00C2F65D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F98B77B01EDC762C00C2F65D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -77,11 +77,36 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F9297ECE1EDD032800A4124E /* cells */ = {
+		F96403C91EDE69AB00F0ADB5 /* DashBoard */ = {
 			isa = PBXGroup;
 			children = (
-				F9297ECF1EDD038900A4124E /* SuperHeroCell.h */,
-				F9297ED01EDD038900A4124E /* SuperHeroCell.m */,
+				F96403CC1EDE6D1900F0ADB5 /* DashBoard */,
+			);
+			name = DashBoard;
+			sourceTree = "<group>";
+		};
+		F96403CA1EDE69F300F0ADB5 /* search */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = search;
+			sourceTree = "<group>";
+		};
+		F96403CC1EDE6D1900F0ADB5 /* DashBoard */ = {
+			isa = PBXGroup;
+			children = (
+				F96403CD1EDE6D1900F0ADB5 /* cells */,
+				F96403D01EDE6D1900F0ADB5 /* ViewController.h */,
+				F96403D11EDE6D1900F0ADB5 /* ViewController.m */,
+			);
+			path = DashBoard;
+			sourceTree = "<group>";
+		};
+		F96403CD1EDE6D1900F0ADB5 /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				F96403CE1EDE6D1900F0ADB5 /* SuperHeroCell.h */,
+				F96403CF1EDE6D1900F0ADB5 /* SuperHeroCell.m */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -107,14 +132,13 @@
 		F98B779E1EDC762C00C2F65D /* super herois */ = {
 			isa = PBXGroup;
 			children = (
-				F9297ECE1EDD032800A4124E /* cells */,
+				F96403CA1EDE69F300F0ADB5 /* search */,
 				F9297ECC1EDCFAFE00A4124E /* Assets.xcassets */,
 				F9C3151A1EDC9B7F0093714B /* model */,
 				F9C3151B1EDC9B7F0093714B /* services */,
 				F98B77A21EDC762C00C2F65D /* AppDelegate.h */,
 				F98B77A31EDC762C00C2F65D /* AppDelegate.m */,
-				F98B77A51EDC762C00C2F65D /* ViewController.h */,
-				F98B77A61EDC762C00C2F65D /* ViewController.m */,
+				F96403C91EDE69AB00F0ADB5 /* DashBoard */,
 				F98B77A81EDC762C00C2F65D /* Main.storyboard */,
 				F98B77AD1EDC762C00C2F65D /* LaunchScreen.storyboard */,
 				F98B77B01EDC762C00C2F65D /* Info.plist */,
@@ -279,12 +303,12 @@
 			files = (
 				F9C315271EDCACD80093714B /* HeroesService.m in Sources */,
 				F9C315241EDCA39C0093714B /* CharacterItem.m in Sources */,
-				F98B77A71EDC762C00C2F65D /* ViewController.m in Sources */,
 				F98B77A41EDC762C00C2F65D /* AppDelegate.m in Sources */,
+				F96403D31EDE6D1900F0ADB5 /* ViewController.m in Sources */,
 				F98B77A11EDC762C00C2F65D /* main.m in Sources */,
+				F96403D21EDE6D1900F0ADB5 /* SuperHeroCell.m in Sources */,
 				F9C3151E1EDC9B8E0093714B /* Characters.m in Sources */,
 				F9C315211EDC9D1E0093714B /* CharactersData.m in Sources */,
-				F9297ED21EDD038900A4124E /* SuperHeroCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
