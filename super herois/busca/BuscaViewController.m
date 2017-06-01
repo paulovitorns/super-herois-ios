@@ -29,22 +29,32 @@
     self.uifield_nome_personagem.layer.cornerRadius = 5.0f;
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    UITouch *touch = [[event allTouches] anyObject];
+    
+    if ([self.uifield_nome_personagem isFirstResponder] && [touch view] != self.uifield_nome_personagem) {
+        [self.uifield_nome_personagem resignFirstResponder];
+    }
+    
+    if(!self.uiview_picker_container.isHidden){
+        if(self.selectedIndex > -1){
+            self.uiview_picker_container.hidden = TRUE;
+            self.uilbl_order.text = [self.itens_order objectAtIndex:self.selectedIndex];
+        }
+    }
+    
+    [super touchesBegan:touches withEvent:event];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 - (void)initViews{
+    
+    self.uifield_nome_personagem.delegate = self;
     self.uipicker_data.delegate   = self;
     self.uipicker_data.dataSource = self;
     self.uiview_picker_container.hidden = TRUE;
@@ -124,6 +134,14 @@
     
     self.uiview_picker_container.hidden = TRUE;
     self.uilbl_order.text = [self.itens_order objectAtIndex:self.selectedIndex];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == self.uifield_nome_personagem) {
+        [textField resignFirstResponder];
+        return NO;
+    }
+    return YES;
 }
 
 - (void)singleTap:(UITapGestureRecognizer *)gesture {

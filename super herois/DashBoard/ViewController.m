@@ -20,15 +20,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    if(self.params == nil)
-        [self prepareParams];
+    if(self.paramsToBeEditable == nil)
+        [self initParams];
     
-    [self requestData:self.params];
+    [self requestData:[self.paramsToBeEditable copy]];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    [self registerListeners];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,7 +58,10 @@
     CharacterItem *item = [self.data objectAtIndex:indexPath.row];
     
     cell.uilbl_hero_name.text = item.name;
-    cell.uilbl_hero_short_desc.text = item.desc;
+    if([item.desc isEqualToString:@""])
+        cell.uilbl_hero_short_desc.text = @"...";
+    else
+        cell.uilbl_hero_short_desc.text = item.desc;
     
     NSString *imgUrl = [NSString stringWithFormat:@"%@.%@", item.thumbnail[@"path"], item.thumbnail[@"extension"], nil];
     
@@ -67,26 +69,65 @@
                              placeholderImage:[UIImage imageNamed:@"ic_marvel_file"]
      options:SDWebImageRefreshCached];
     
+    if(indexPath.row == ([self.data count] - 2)){
+        [self loadMoreItens];
+    }
+    
     return cell;
 }
 
--(void)prepareParams{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    self.selectedIndex = indexPath.row;
+    [self performSegueWithIdentifier:@"showDetail" sender:self];
+}
+
+- (NSString *)getTimeMillis{
     long currentTime = (long)(NSTimeInterval)([[NSDate date] timeIntervalSince1970]);
-    NSString *time = [NSString stringWithFormat:@"%ld", currentTime];
+    return [NSString stringWithFormat:@"%ld", currentTime];
+}
+
+-(void)initParams{
     
-    self.params = @{
-                    @"orderBy":@"name",
-                    @"limit": [[NSNumber alloc] initWithInt:10],
-                    @"offset": [[NSNumber alloc] initWithInt:0],
-                    @"apikey": @"656ace3b6053ed496242e3d3f7dca830",
-                    @"ts": time,
-                    @"hash": [HeroesService generateHashKey:time]};
+    if(self.paramsToBeEditable == nil)
+        self.paramsToBeEditable = [[NSMutableDictionary alloc] init];
+    
+    self.page       = 0;
+    self.pageSize   = 10;
+    
+    [self.paramsToBeEditable setValue:@"name" forKey:@"orderBy"];
+    [self.paramsToBeEditable setValue:[[NSNumber alloc] initWithInt:self.pageSize] forKey:@"limit"];
+    [self.paramsToBeEditable setValue:[[NSNumber alloc] initWithInt:self.page] forKey:@"offset"];
+    [self.paramsToBeEditable setValue:@"656ace3b6053ed496242e3d3f7dca830" forKey:@"apikey"];
+    [self.paramsToBeEditable setValue:[self getTimeMillis] forKey:@"ts"];
+    [self.paramsToBeEditable setValue:[HeroesService generateHashKey:[self getTimeMillis]] forKey:@"hash"];
 }
 
 - (void)prepareParams:(NSNotification *)notification{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:POSTSEARCHMETHOD object:nil];
-    self.params = notification.userInfo;
-    [self requestData:self.params];
+    
+    self.page           = 0;
+    self.pageSize       = 10;
+    self.hasMorePages   = NO;
+    
+    self.paramsToBeEditable = [notification.userInfo mutableCopy];
+    [self.paramsToBeEditable setValue:[[NSNumber alloc] initWithInt:self.pageSize] forKey:@"limit"];
+    [self.paramsToBeEditable setValue:[[NSNumber alloc] initWithInt:self.page] forKey:@"offset"];
+    [self.paramsToBeEditable setValue:[self getTimeMillis] forKey:@"ts"];
+    [self.paramsToBeEditable setValue:[HeroesService generateHashKey:[self getTimeMillis]] forKey:@"hash"];
+    
+    [self requestData:[self.paramsToBeEditable copy]];
+}
+
+-(void)loadMoreItens{
+    if(self.hasMorePages){
+        [self.paramsToBeEditable setValue:[[NSNumber alloc] initWithInt:self.pageSize] forKey:@"limit"];
+        [self.paramsToBeEditable setValue:[[NSNumber alloc] initWithInt:self.page] forKey:@"offset"];
+        [self.paramsToBeEditable setValue:[self getTimeMillis] forKey:@"ts"];
+        [self.paramsToBeEditable setValue:[HeroesService generateHashKey:[self getTimeMillis]] forKey:@"hash"];
+        
+        [self requestData:[self.paramsToBeEditable copy]];
+        
+    }
 }
 
 -(void)showSpinner{
@@ -115,7 +156,7 @@
 -(void)requestData:(NSDictionary *)params{
     
     [self showSpinner];
-    
+    [self registerListeners];
     [HeroesService getData:@"https://gateway.marvel.com:443/v1/public/characters" withFunc:AFCharactersMethod andWithParams:params];
 }
 
@@ -137,9 +178,29 @@
     if([notification.userInfo isKindOfClass:[NSDictionary class]]){
         
         self.characters = [Characters new];
-        self.data = [[NSMutableArray alloc] init];
-        
         [self.characters parseResult:notification.userInfo];
+        
+        if(!self.hasMorePages){
+            
+            self.data = [[NSMutableArray alloc] init];
+            
+            if(self.characters.charactersData.total > self.pageSize){
+                self.hasMorePages   = YES;
+                self.countPages     = self.characters.charactersData.total;
+                self.page           = self.page + self.pageSize;
+            }else{
+                self.hasMorePages = NO;
+            }
+            
+        }else{
+            
+            self.page = self.page+self.pageSize;
+            
+            if(self.page >= self.countPages){
+                self.hasMorePages = NO;
+            }
+        }
+        
         [self.data addObjectsFromArray:self.characters.charactersData.results];
     }
     
@@ -153,12 +214,19 @@
     
 }
 
+#pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"showSearchSegue"]) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(prepareParams:) name:POSTSEARCHMETHOD object:nil];
         BuscaViewController *controller = segue.destinationViewController;
-        controller.params = self.params;
+        controller.params = [self.paramsToBeEditable copy];
     }
+    
+    if ([segue.identifier isEqualToString:@"showDetail"]) {
+        DetailsViewController *controller = segue.destinationViewController;
+        controller.character = [self.data objectAtIndex:self.selectedIndex];
+    }
+    
 }
 
 @end

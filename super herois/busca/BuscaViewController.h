@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 
-@interface BuscaViewController : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource>
+@interface BuscaViewController : UIViewController<UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITextField *uifield_nome_personagem;
 @property (weak, nonatomic) IBOutlet UILabel *uilbl_order;
