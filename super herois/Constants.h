@@ -13,4 +13,7 @@
 #define  AFCharactersMethod         @"v1/public/characters"
 #define  AFCharactersResponseNOK    @"AFCharactersResponseNOK"
 
+#define NO_CONN_DESC    @"Você não esta conectado a internet!"
+#define EMPTY_DESC      @"Não encontramos nenhum personagem para a sua busca!"
+
 #endif /* Constants_h */

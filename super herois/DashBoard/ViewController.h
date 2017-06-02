@@ -25,9 +25,16 @@
 @property(assign, nonatomic) int page;
 @property(assign, nonatomic) int pageSize;
 @property(assign, nonatomic) BOOL hasMorePages;
+@property(assign, nonatomic) BOOL hasConn;
 @property(weak, nonatomic) IBOutlet UITableView *tableView;
 @property(nonatomic, retain) UIView *uivw_loading;
+@property (weak, nonatomic) IBOutlet UIView *uiview_empty_state;
+@property (weak, nonatomic) IBOutlet UIImageView *uiimg_icon_empty;
+@property (weak, nonatomic) IBOutlet UILabel *uilbl_empty_desc;
+@property (weak, nonatomic) IBOutlet UIButton *uibtn_search;
+@property (weak, nonatomic) IBOutlet UIButton *uibtn_try_again;
 
+-(void)hasConnection;
 -(NSString*)getTimeMillis;
 -(void)initParams;
 -(void)prepareParams:(NSNotification*)notification;
@@ -39,6 +46,10 @@
 -(void)removeListeners;
 -(void)responseData:(NSNotification*)notification;
 -(void)response_NOK:(NSNotification*)notification;
+-(void)showEmptyState;
+-(void)showErrorConnection;
+- (IBAction)navigateToSearch:(id)sender;
+- (IBAction)onTryAgain:(id)sender;
 
 @end
 

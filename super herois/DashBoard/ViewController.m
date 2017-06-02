@@ -23,7 +23,10 @@
     if(self.paramsToBeEditable == nil)
         [self initParams];
     
-    [self requestData:[self.paramsToBeEditable copy]];
+    [self hasConnection];
+    
+    if(self.hasConn)
+        [self requestData:[self.paramsToBeEditable copy]];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -36,7 +39,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.000000000001f;
+    return 84.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -81,6 +84,20 @@
     [self performSegueWithIdentifier:@"showDetail" sender:self];
 }
 
+-(void)hasConnection{
+    NSURL *scriptUrl = [NSURL URLWithString:@"http://www.google.com/m"];
+    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
+    
+    if (!data){
+        self.hasConn = NO;
+        [self showErrorConnection];
+    }else{
+        self.hasConn = YES;
+        self.uiview_empty_state.hidden = YES;
+        self.tableView.hidden = NO;
+    }
+}
+
 - (NSString *)getTimeMillis{
     long currentTime = (long)(NSTimeInterval)([[NSDate date] timeIntervalSince1970]);
     return [NSString stringWithFormat:@"%ld", currentTime];
@@ -105,6 +122,9 @@
 - (void)prepareParams:(NSNotification *)notification{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:POSTSEARCHMETHOD object:nil];
     
+    self.data = [[NSMutableArray alloc] init];
+    [self.tableView reloadData];
+    
     self.page           = 0;
     self.pageSize       = 10;
     self.hasMorePages   = NO;
@@ -115,10 +135,15 @@
     [self.paramsToBeEditable setValue:[self getTimeMillis] forKey:@"ts"];
     [self.paramsToBeEditable setValue:[HeroesService generateHashKey:[self getTimeMillis]] forKey:@"hash"];
     
-    [self requestData:[self.paramsToBeEditable copy]];
+    [self hasConnection];
+    if(self.hasConn)
+        [self requestData:[self.paramsToBeEditable copy]];
 }
 
 -(void)loadMoreItens{
+    
+    [self hasConnection];
+    
     if(self.hasMorePages){
         [self.paramsToBeEditable setValue:[[NSNumber alloc] initWithInt:self.pageSize] forKey:@"limit"];
         [self.paramsToBeEditable setValue:[[NSNumber alloc] initWithInt:self.page] forKey:@"offset"];
@@ -177,41 +202,77 @@
     
     if([notification.userInfo isKindOfClass:[NSDictionary class]]){
         
-        self.characters = [Characters new];
-        [self.characters parseResult:notification.userInfo];
-        
-        if(!self.hasMorePages){
+        if([notification.userInfo[@"data"][@"count"] intValue] > 0){
             
-            self.data = [[NSMutableArray alloc] init];
+            self.tableView.hidden = NO;
+            self.uiview_empty_state.hidden = YES;
             
-            if(self.characters.charactersData.total > self.pageSize){
-                self.hasMorePages   = YES;
-                self.countPages     = self.characters.charactersData.total;
-                self.page           = self.page + self.pageSize;
+            self.characters = [Characters new];
+            [self.characters parseResult:notification.userInfo];
+            
+            if(!self.hasMorePages){
+                
+                if(self.data == nil)
+                    self.data = [[NSMutableArray alloc] init];
+                
+                if(self.characters.charactersData.total > self.pageSize){
+                    self.hasMorePages   = YES;
+                    self.countPages     = self.characters.charactersData.total;
+                    self.page           = self.page + self.pageSize;
+                }else{
+                    self.hasMorePages = NO;
+                }
+                
             }else{
-                self.hasMorePages = NO;
+                
+                self.page = self.page+self.pageSize;
+                
+                if(self.page >= self.countPages){
+                    self.hasMorePages = NO;
+                }
             }
             
+            [self.data addObjectsFromArray:self.characters.charactersData.results];
         }else{
-            
-            self.page = self.page+self.pageSize;
-            
-            if(self.page >= self.countPages){
-                self.hasMorePages = NO;
-            }
+            [self showEmptyState];
         }
         
-        [self.data addObjectsFromArray:self.characters.charactersData.results];
     }
     
     [self.tableView reloadData];
 }
 
 - (void)response_NOK:(NSNotification *)notification{
-    
     [self removeSpinner];
     [self removeListeners];
-    
+}
+
+-(void)showEmptyState{
+    self.tableView.hidden = YES;
+    self.uiview_empty_state.hidden = NO;
+    self.uilbl_empty_desc.text = EMPTY_DESC;
+    self.uibtn_search.hidden = NO;
+    self.uibtn_try_again.hidden = YES;
+    [self.uiimg_icon_empty setImage:[UIImage imageNamed:@"ic_warning_white_48pt"]];
+}
+
+-(void)showErrorConnection{
+    self.tableView.hidden = YES;
+    self.uiview_empty_state.hidden = NO;
+    self.uilbl_empty_desc.text = NO_CONN_DESC;
+    self.uibtn_search.hidden = YES;
+    self.uibtn_try_again.hidden = NO;
+    [self.uiimg_icon_empty setImage:[UIImage imageNamed:@"ic_signal_wifi_off_white_48pt"]];
+}
+
+- (IBAction)navigateToSearch:(id)sender {
+    [self performSegueWithIdentifier:@"showSearchSegue" sender:self];
+}
+
+- (IBAction)onTryAgain:(id)sender {
+    [self hasConnection];
+    if(self.hasConn)
+        [self requestData:[self.paramsToBeEditable copy]];
 }
 
 #pragma mark - Navigation
